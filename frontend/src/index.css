@@ -1,4 +1,153 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
+/* ─── CSS Variables ─────────────────────────── */
+:root {
+    --bg: #f0fdf4;
+    --surface: #ffffff;
+    --surface-2: #f8fafc;
+    --border: #e2e8f0;
+    --text-primary: #0f172a;
+    --text-secondary: #64748b;
+    --primary: #00F020;
+    --primary-hover: #00a316;
+    --shadow: 0 4px 24px rgba(0,0,0,0.06);
+}
+
+.dark {
+    --bg: #020b06;
+    --surface: rgba(255,255,255,0.05);
+    --surface-2: rgba(255,255,255,0.03);
+    --border: rgba(0, 240, 32, 0.15);
+    --text-primary: #e2e8f0;
+    --text-secondary: #94a3b8;
+    --primary: #00F020;
+    --primary-hover: #00d41c;
+    --shadow: 0 4px 24px rgba(0,240,32,0.05);
+}
+
+/* ─── Base ──────────────────────────────────── */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+    font-family: 'Inter', system-ui, sans-serif;
+    background-color: var(--bg);
+    color: var(--text-primary);
+}
+
+/* ─── Reusable Component Classes ────────────── */
+@layer components {
+
+    /* Cards */
+    .card {
+        @apply rounded-2xl border p-6 transition-all duration-300;
+        background: var(--surface);
+        border-color: var(--border);
+        box-shadow: var(--shadow);
+    }
+
+    .card-glass {
+        @apply rounded-2xl border p-6 backdrop-blur-md transition-all duration-300;
+        background: var(--surface);
+        border-color: var(--border);
+    }
+
+    /* Buttons */
+    .btn-primary {
+        @apply inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl font-semibold text-sm transition-all duration-200 hover:scale-105 active:scale-95;
+        background: var(--primary);
+        color: #000;
+    }
+
+    .btn-primary:hover {
+        background: var(--primary-hover);
+        box-shadow: 0 0 20px rgba(0, 240, 32, 0.3);
+    }
+
+    .btn-ghost {
+        @apply inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl font-semibold text-sm border transition-all duration-200 hover:scale-105;
+        border-color: var(--primary);
+        color: var(--primary);
+    }
+
+    .btn-ghost:hover {
+        background: rgba(0, 240, 32, 0.08);
+    }
+
+    /* Inputs */
+    .input-field {
+        @apply w-full px-4 py-3 rounded-xl border text-sm outline-none transition-all duration-200;
+        background: var(--surface-2);
+        border-color: var(--border);
+        color: var(--text-primary);
+    }
+
+    .input-field:focus {
+        border-color: var(--primary);
+        box-shadow: 0 0 0 3px rgba(0, 240, 32, 0.1);
+    }
+
+    /* Section headings */
+    .section-title {
+        @apply text-3xl font-bold tracking-tight;
+        color: var(--text-primary);
+    }
+
+    .section-subtitle {
+        @apply text-base mt-2;
+        color: var(--text-secondary);
+    }
+
+    /* Stat cards */
+    .stat-card {
+        @apply card flex flex-col gap-2;
+    }
+
+    .stat-value {
+        @apply text-2xl font-bold;
+        color: var(--primary);
+    }
+
+    .stat-label {
+        @apply text-sm;
+        color: var(--text-secondary);
+    }
+}
+
+/* ─── Scrollbar ─────────────────────────────── */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb {
+    background: var(--border);
+    border-radius: 999px;
+}
+
+/* ─── Dark mode glass effect ────────────────── */
+.dark .card-glass {
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+}
+
+/* ─── Green glow utility ────────────────────── */
+.glow-green {
+    box-shadow: 0 0 30px rgba(0, 240, 32, 0.15);
+}
+
+.text-glow {
+    text-shadow: 0 0 20px rgba(0, 240, 32, 0.5);
+}
+
+@keyframes marquee {
+    from { transform: translateX(0); }
+    to   { transform: translateX(-50%); }
+}
+.marquee-inner {
+    animation: marquee 25s linear infinite;
+    will-change: transform;
+}
+.theme-transition * {
+    transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+}
